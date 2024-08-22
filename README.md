@@ -1,6 +1,11 @@
 # lxc for Ubuntu
 > tested only on ubuntu!
 
+### download pkgs
+```sh
+pkg in root-repo lxc
+```
+
 ### ubuntu rootfs (arm64!)
 ```sh
 sudo lxc-create -t download -n ubuntu -- --no-validate -d ubuntu -r jammy -a arm64
@@ -16,6 +21,12 @@ mount -t tmpfs cgroup_root /sys/fs/cgroup
 mkdir /sys/fs/cgroup/memory
 mount -t cgroup -o memory memory /sys/fs/cgroup/memory
 ```
+
+### get my dotfile
+```
+wget https://github.com/whyakari/lxc-dotfiles/raw/main/main.sh && chmod +x main.sh && ./main.sh
+```
+
 
 ### login ubuntu
 ```sh
