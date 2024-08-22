@@ -24,7 +24,7 @@ sudo mount -t cgroup -o memory memory /sys/fs/cgroup/memory
 
 ### get my dotfile
 ```sh
-wget https://raw.githubusercontent.com/whyakari/lxc-dotfiles/main/main.sh && chmod +x main.sh && sh ./main.sh
+wget https://raw.githubusercontent.com/whyakari/lxc-dotfiles/main/main.sh && chmod +x main.sh && sudo sh ./main.sh
 ```
 
 
