@@ -3,7 +3,7 @@
 
 ### download pkgs
 ```sh
-pkg in root-repo lxc
+pkg in root-repo lxc tsu
 ```
 
 ### ubuntu rootfs (arm64!)
