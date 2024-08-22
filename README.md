@@ -23,8 +23,8 @@ mount -t cgroup -o memory memory /sys/fs/cgroup/memory
 ```
 
 ### get my dotfile
-```
-wget https://github.com/whyakari/lxc-dotfiles/raw/main/main.sh && chmod +x main.sh && ./main.sh
+```sh
+wget https://raw.githubusercontent.com/whyakari/lxc-dotfiles/main/main.sh && chmod +x main.sh && sh ./main.sh
 ```
 
 
