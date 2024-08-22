@@ -36,3 +36,7 @@ lxc-start -n ubuntu -d -F
 ### shell login
 - user: root 
 - pass: 123456
+
+
+## Features
+- docker and **docker compose** both work
