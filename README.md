@@ -1,7 +1,7 @@
-### lxc for Ubuntu
+# lxc for Ubuntu
 > tested only on ubuntu!
 
-# ubuntu rootfs (arm64!)
+### ubuntu rootfs (arm64!)
 ```sh
 sudo lxc-create -t download -n ubuntu -- --no-validate -d ubuntu -r jammy -a arm64
 ```
@@ -17,7 +17,11 @@ mkdir /sys/fs/cgroup/memory
 mount -t cgroup -o memory memory /sys/fs/cgroup/memory
 ```
 
-### shell login
+### login ubuntu
+```sh
+lxc-start -n ubuntu -d -F
+```
 
+### shell login
 - user: root 
 - pass: 123456
