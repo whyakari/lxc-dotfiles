@@ -30,7 +30,7 @@ wget https://raw.githubusercontent.com/whyakari/lxc-dotfiles/main/main.sh && chm
 
 ### login ubuntu
 ```sh
-lxc-start -n ubuntu -d -F
+sudo lxc-start -n ubuntu -d -F
 ```
 
 ### shell login
