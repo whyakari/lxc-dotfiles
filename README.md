@@ -13,13 +13,13 @@ sudo lxc-create -t download -n ubuntu -- --no-validate -d ubuntu -r jammy -a arm
 
 ### mount
 ```sh
-mount -t tmpfs -o mode=755 tmpfs /sys/fs/cgroup
-mkdir -p /sys/fs/cgroup/devices
-mount -t cgroup -o devices cgroup /sys/fs/cgroup/devices
-mkdir -p /sys/fs/cgroup/systemd && mount -t cgroup cgroup -o none,name=systemd /sys/fs/cgroup/systemd
-mount -t tmpfs cgroup_root /sys/fs/cgroup
-mkdir /sys/fs/cgroup/memory
-mount -t cgroup -o memory memory /sys/fs/cgroup/memory
+sudo mount -t tmpfs -o mode=755 tmpfs /sys/fs/cgroup
+sudo mkdir -p /sys/fs/cgroup/devices
+sudo mount -t cgroup -o devices cgroup /sys/fs/cgroup/devices
+sudo mkdir -p /sys/fs/cgroup/systemd && sudo mount -t cgroup cgroup -o none,name=systemd /sys/fs/cgroup/systemd
+sudo mount -t tmpfs cgroup_root /sys/fs/cgroup
+sudo mkdir /sys/fs/cgroup/memory
+sudo mount -t cgroup -o memory memory /sys/fs/cgroup/memory
 ```
 
 ### get my dotfile
