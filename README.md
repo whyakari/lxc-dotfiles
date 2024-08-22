@@ -39,7 +39,7 @@ sudo lxc-start -n ubuntu -d -F
 
 
 ## Features
-- docker and **docker compose**, work;
+- docker/**docker compose** work;
 - the internet network work;
 - full systemd support;
 - full systemctl support.
