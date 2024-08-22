@@ -39,4 +39,6 @@ lxc-start -n ubuntu -d -F
 
 
 ## Features
-- docker and **docker compose** both work
+- docker and **docker compose** both work;
+- full systemd support;
+- full systemctl support.
