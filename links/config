@@ -1,0 +1,15 @@
+lxc.include = /data/data/com.termux/files/usr/share/lxc/config/common.conf
+lxc.arch = linux64
+
+lxc.rootfs.path = dir:/data/data/com.termux/files/usr/var/lib/lxc/ubuntu/rootfs
+lxc.uts.name = ubuntu
+
+lxc.net.0.type = none
+lxc.hook.version = 1
+lxc.cgroup.devices.allow = a
+lxc.mount.auto = cgroup:mixed sys:mixed proc:mixed
+
+lxc.hook.pre-start = bash -c "if ! mountpoint -q /sys/fs/cgroup &>/dev/null; then mkdir -p /sys/fs/cgroup; mount -t tmpfs -o rw,nosuid,nodev,noexec,relatime cgroup_root /sys/fs/cgroup; fi; for cg in blkio cpu cpuacct cpuset devices freezer memory pids; do if ! mountpoint -q /sys/fs/cgroup/\${cg} &>/dev/null; then mkdir -p /sys/fs/cgroup/\${cg}; mount -t cgroup -o rw,nosuid,nodev,noexec,relatime,\${cg} \${cg} /sys/fs/cgroup/\${cg} &>/dev/null; fi; done; mkdir -p /sys/fs/cgroup/systemd; mount -t cgroup -o none,name=systemd systemd /sys/fs/cgroup/systemd; umount -Rl /sys/fs/cgroup/cg2_bpf; umount -Rl /sys/fs/cgroup/schedtune; umount -Rl '${LXC_ROOTFS_PATH}'; sed -i -E 's/^( *# *DNS=.*|DNS=.*)/DNS=1.1.1.1/g' '${LXC_ROOTFS_PATH}/etc/systemd/resolved.conf'; mount -B '${LXC_ROOTFS_PATH}' '${LXC_ROOTFS_PATH}'; mount -i -o remount,suid '${LXC_ROOTFS_PATH}'; if [ ! -e '${LXC_ROOTFS_PATH}/usr/bin/udevadm.' ]; then mv -f '${LXC_ROOTFS_PATH}/usr/bin/udevadm' '${LXC_ROOTFS_PATH}/usr/bin/udevadm.'; fi; echo -e '#!/usr/bin/bash\n/usr/bin/udevadm. \"\$@\" || true' > '${LXC_ROOTFS_PATH}/usr/bin/udevadm'; chmod +x '${LXC_ROOTFS_PATH}/usr/bin/udevadm'; true;"
+
+lxc.hook.pre-start = bash -c 'mkdir -p '"${LXC_ROOTFS_PATH}/etc/tmpfiles.d"'; echo -e "#Type Path       Mode User Group Age Argument\nc!     /dev/cuse  0666 root root  -   10:203\nc!     /dev/fuse  0666 root root  -   10:229\nc!     /dev/ashmem  0666 root root  -   10:58\nc!     /dev/loop-control  0600 root root  -   10:237" > '"${LXC_ROOTFS_PATH}/etc/tmpfiles.d/lxc-required-setup.conf"'; for i in $(seq -s " " 0 255); do echo "b!     /dev/loop${i}  0600 root root  -   7:$((${i} * 8))" >> '"${LXC_ROOTFS_PATH}/etc/tmpfiles.d/lxc-required-setup.conf"'; done; for i in binder hwbinder vndbinder; do echo "L!     /dev/${i}  - - -  -   /dev/binderfs/anbox-${i}" >> '"${LXC_ROOTFS_PATH}/etc/tmpfiles.d/lxc-required-setup.conf"'; done; echo -e "#!/usr/bin/bash\n\nsetup_lxc_configuration(){\n\nmount -o remount,rw /sys/fs/cgroup\numount -Rl /sys/fs/cgroup/{schedtune,cpu,cpuacct,'cpu,cpuacct'} &>/dev/null\nrm -rf /sys/fs/cgroup/{schedtune,cpu,cpuacct,'cpu,cpuacct'}\nmkdir -p /sys/fs/cgroup/{cpu,cpuacct}\nfor cg in cpu cpuacct; do\n  mount -t cgroup -o rw,nosuid,nodev,noexec,relatime,\${cg} \${cg} /sys/fs/cgroup/\${cg}\ndone\nmount -o remount,ro /sys/fs/cgroup\n\numount -Rl /dev/binderfs\n\nrm -rf /dev/binderfs\nmkdir -p /dev/binderfs\nmount -t binder binder /dev/binderfs\n\n}\n\nsetup_lxc_configuration &>/dev/null || true\n" > '"${LXC_ROOTFS_PATH}/etc/rc.local"'; chmod +x '"${LXC_ROOTFS_PATH}/etc/rc.local"'; true;'
+
